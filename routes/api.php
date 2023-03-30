@@ -20,3 +20,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('login', 'Api\V1\Admin\LoginController@authenticated');
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::namespace('Api\V1\Admin')->group(function () {
+
+
+        Route::get('products/search', 'ProductController@search');
+
+        Route::apiResources([
+            'categories' => 'CategoryController',
+            'products' => 'ProductController',
+            'purchases' => 'PurchaseController',
+            'suppliers' => 'SupplierController',
+        ]);
+    });
+});
